@@ -91,11 +91,11 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 };
 displayMovements(account1.movements);
 //create user names abbreviation
-const createUserNames = function (user) {
+const createUserNames = function (arr_with_account) {
 
   //abbreviation
-  //const user = 'Steven Thomas Williams'; //i need stw
-  const username = user
+  arr_with_account.forEach(function(one_acc){
+    one_acc.username = one_acc.owner
     .toLowerCase()
     .split(' ')
     //Arrow function
@@ -106,16 +106,103 @@ const createUserNames = function (user) {
     
     })*/
     .join('');
-    return username;
+    //return username;
+  })
+  //const user = 'Steven Thomas Williams'; //i need stw
+  //const username = user
+    
 }
-console.log(createUserNames('Erick Rotich'));
+createUserNames(accounts);
+console.log(accounts);
+const calcDisplayBalance =function(movements){
+  const balance=movements.reduce((acc,mov)=>acc+mov,0);
+  labelBalance.textContent=`${balance} PLN`;
+}
+calcDisplayBalance(account1.movements);
 
+const calcDisplaySummary = function(movements){
+  //incomes
+  const incomes = acc.movements
+  .filter(mov => mov>0)
+  .reduce((acc, mov) => acc + mov,0 );
+  labelSumIn.textContent = ` ${incomes}pln`;
+//outcomes
+const outcomes = acc.movements
+.filter(mov => mov<0)
+.reduce((acc, mov) => acc + mov,0 );
+labelSumOut.textContent = ` ${outcomes}pln`;
+//intrest 1.2% of deposited amount of money
+const intrest = acc.movements
+.filter(mov=>mov>0)
+.map(deposit=>(deposit*1.2/100))
+.reduce((acc,inter)=>acc+inter,0);
+labelSumInterest.textContent = ` ${intrest}pln`;
+}
+calcDisplaySummary(account1.movements);
 
+let currentAccount;
+btnLogin.addEventListener('click', function(e){
+  //prevent form from permitting
+  e.preventDefault();
+  currentAccount=accounts.find(acc=>acc.username===inputLoginUsername.value);
+  console.log(currentAccount);
 
+  if(currentAccount.pin===Number(inputLoginPin.value)){
+    console.log('LOGIN OK');
+    //display UI and welcome message
+     labelWelcome.textContent=`Welcome back, ${currentAccount.owner.split(' ')[0]}`;
+     containerApp.style.opacity=100;
+    //display movments for particular acc
+    displayMovements(currentAccount.movements);
+    // display balance
+    calcDisplayBalance(currentAccount.movements);
+    //display movements
+    calcDisplayBalance(currentAccount.movements);
+    //clear input fields
+    inputLoginUsername.value=inputLoginPin.value='';
+    inputLoginPin.blur();
+  }
+})
 
+//the find method
+/*const firstWithdrawal = movements.find(mov=>mov<0);
+console.log(movements);
+console.log(firstWithdrawal);
+const account = accounts.find(acc => acc.owner==='Jessica Davis');
+console.log(account);
+*/
+ 
+/*createUserNames(accounts)
+console.log(accounts);
 
+const deposits = movements.filter(function (mov){
+  return mov >0;
+});
+console.log(movements);
+console.log(deposits);
 
+ //2.0
+const arr=[];
+for(const mov of movements){
+  if(mov>0)arr.push(mov);
+}
+console.log(arr);
 
+const withdrawals=movements.filter(mov => mov<0);
+console.log(withdrawals);
+
+//reduce
+
+//accumulator = snowball
+
+//cur -current i
+const balance = movements.reduce(function(acc,cur, i, arr){
+  console.log(`Iteration ${i}: ${acc}`);
+  return acc +cur
+}, 0);
+console.log(balance);
+const balance2 = movements.reduce((acc,cur)=>acc+cur,0);
+console.log(balance2);
 /*const euro =[10,20,30]
 const euroToUsd = 1.1;
 const newArrayUsd = euro.map(function(currentElement)
