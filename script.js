@@ -61,13 +61,13 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-//const movements=[200, 450, -400, 3000, -650, -130, 70, 1300]
-//movements.forEach(function(mov, i){//mov -current element
- // console.log(`${mov} , ${i}`);
+const movements=[200, 450, -400, 3000, -650, -130, 70, 1300]
+movements.forEach(function(mov, i){//mov -current element
+  console.log(`${mov} , ${i}`);
 
 
   
-//});
+});
 
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -100,16 +100,16 @@ const createUserNames = function (arr_with_account) {
     .split(' ')
     //Arrow function
     .map(name => name[0])
-    /*.map(function(name)
+    .map(function(name)
     {
       return name[0];
     
-    })*/
+    })
     .join('');
-    //return username;
+    return username;
   })
-  //const user = 'Steven Thomas Williams'; //i need stw
-  //const username = user
+  const user = 'Steven Thomas Williams'; //i need stw
+  const username = user
     
 }
 createUserNames(accounts);
@@ -152,7 +152,7 @@ btnLogin.addEventListener('click', function(e){
     //display UI and welcome message
      labelWelcome.textContent=`Welcome back, ${currentAccount.owner.split(' ')[0]}`;
      containerApp.style.opacity=100;
-    //display movments for particular acc
+    //display movements for particular acc
     displayMovements(currentAccount.movements);
     // display balance
     calcDisplayBalance(currentAccount.movements);
@@ -165,14 +165,14 @@ btnLogin.addEventListener('click', function(e){
 })
 
 //the find method
-/*const firstWithdrawal = movements.find(mov=>mov<0);
+const firstWithdrawal = movements.find(mov=>mov<0);
 console.log(movements);
 console.log(firstWithdrawal);
 const account = accounts.find(acc => acc.owner==='Jessica Davis');
 console.log(account);
-*/
+
  
-/*createUserNames(accounts)
+createUserNames(accounts)
 console.log(accounts);
 
 const deposits = movements.filter(function (mov){
@@ -203,7 +203,7 @@ const balance = movements.reduce(function(acc,cur, i, arr){
 console.log(balance);
 const balance2 = movements.reduce((acc,cur)=>acc+cur,0);
 console.log(balance2);
-/*const euro =[10,20,30]
+const euro =[10,20,30]
 const euroToUsd = 1.1;
 const newArrayUsd = euro.map(function(currentElement)
 {
@@ -237,4 +237,3 @@ const descriptionArray2 =euro.map((ce,i,arr )=>
 );
 console.log(descriptionArray2);
 
-*/
